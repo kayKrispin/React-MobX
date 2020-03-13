@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { observable, configure, action, computed, decorate } from "mobx";
+import { observable, configure, action, computed, decorate, when, autorun } from "mobx";
 import Controls from "./Controls";
 
 configure({ enforceActions: "observed" });
@@ -102,6 +102,18 @@ decorate(TodoList, {
 });
 
 const todoStore = new TodoList();
+
+when(
+  () => todoStore.todos.length > 5,
+  () => { alert('Todos value is more than 5') }
+);
+
+autorun(() => {
+  alert(`Count value is: ${todoStore.todos.length}`);
+}, {
+  name: 'Custom autorun',
+  delay: 3000,
+});
 
 
 const userName =  observable({
