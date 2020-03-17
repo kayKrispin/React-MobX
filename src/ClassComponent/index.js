@@ -33,7 +33,12 @@ import { observer } from "mobx-react";
         <ul className="todo-container">
           {
             store.filteredValue.map((todo, index) => (
-              <li key={index} onClick={() => this.removeTodo(index)}>{`${todo.name} ${todo.price}`}</li>
+              <li
+                key={index}
+                onClick={() => this.removeTodo(index)}
+              >
+                {`${todo.name} ${todo.price}`}
+              </li>
             ))
           }
         </ul>

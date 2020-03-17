@@ -1,6 +1,6 @@
 import { observable, configure, action, computed, decorate, when, autorun } from "mobx";
 
-configure({ enforceActions: "observed" });
+// configure({ enforceActions: "observed" });
 
 
 //TODO this is old, class based solution
@@ -98,16 +98,16 @@ decorate(TodoList, {
 
 const todoStore = new TodoList();
 
-when(
-  () => todoStore.todos.length > 5,
-  () => { alert('Todos value is more than 5') }
-);
-
-autorun(() => {
-  alert(`Count value is: ${todoStore.todos.length}`);
-}, {
-  name: 'Custom autorun',
-  delay: 3000,
-});
+// when(
+//   () => todoStore.todos.length > 5,
+//   () => { alert('Todos value is more than 5') }
+// );
+//
+// autorun(() => {
+//   alert(`Count value is: ${todoStore.todos.length}`);
+// }, {
+//   name: 'Custom autorun',
+//   delay: 3000,
+// });
 
 export default todoStore;

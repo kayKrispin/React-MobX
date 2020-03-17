@@ -3,6 +3,7 @@ import './App.css';
 import { Tabs } from 'antd';
 import ClassStore from "./classBasedStore";
 import ClassComponent from "./ClassComponent";
+import FunctionComponent from "./FunctionalComponent";
 
 const { TabPane } = Tabs;
 
@@ -12,13 +13,13 @@ const { TabPane } = Tabs;
     return (
       <div className="App">
         <Tabs defaultActiveKey="1">
-          <TabPane tab="Tab 1" key="1">
+          <TabPane tab="Class MobX" key="1">
             <ClassComponent store={ClassStore} />
           </TabPane>
-          <TabPane tab="Tab 2" key="2">
-            Content of Tab Pane 2
+          <TabPane tab="Function MobX" key="2">
+            <FunctionComponent/>
           </TabPane>
-        </Tabs>,
+        </Tabs>
       </div>
     );
   }
