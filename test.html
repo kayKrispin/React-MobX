@@ -1,0 +1,137 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+</head>
+
+<body>
+
+<div id="app">
+    <h1>Todos beatch</h1>
+    <div class="inp-container">
+        <input id="main-input" type="text" placeholder="Add todo">
+        <input id="search-input" type="text" placeholder="Search todo">
+    </div>
+    <ul id="ul" ></ul>
+</div>
+</body>
+</html>
+
+
+<style>
+    #app {
+        text-align: center;
+    }
+
+    #app input {
+        width: 20rem;
+        height: 3rem;
+        font-size: 2rem;
+        margin: auto;
+    }
+
+    ul {
+        font-size: 2rem;
+        list-style: none;
+    }
+
+    .inp-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        margin-left: auto;
+    }
+</style>
+
+<script>
+  const ul = document.querySelector("ul");
+  const main_input = document.querySelector("#main-input");
+  const search_input = document.querySelector("#search-input");
+  const li = document.querySelector(".delete");
+
+
+  function randomGen(str = 'qwertyuio') {
+    return str.split('')
+      .sort(() => Math.random() - 0.5)
+      .join('') + '_' + Math.floor(Math.random() * 1000)
+  }
+
+  class Todos {
+      constructor() {
+        this.todos  = [];
+      }
+
+      addTodo() {
+        this.todos = this.todos.concat({
+          id: randomGen(),
+          name: main_input.value,
+          visibility: true
+        });
+      }
+
+
+      render(parent) {
+        ul.innerHTML = "";
+        this.todos.forEach(todo => {
+
+          if (todo.visibility) {
+            const li = document.createElement("li");
+            li.innerHTML = todo.name;
+            li.setAttribute('data-key',todo.id);
+            li.classList.add('delete');
+
+            parent.append(li);
+
+
+            const deleteTodo = function({ target }) {
+              todos.todos = todos.todos.filter(todo => todo.id !== target.dataset.key);
+              todos.render(ul)
+            };
+
+            li.addEventListener("click", deleteTodo)
+          }
+        });
+
+      }
+    }
+
+  const todos  = new Todos();
+
+
+    const onEnter = function(event) {
+      if (event.keyCode === 13) {
+        todos.addTodo();
+        main_input.value = "";
+        todos.render(ul);
+      }
+  };
+
+  addEventListener("keyup", onEnter);
+
+  const searchTodo = function({ target }) {
+    todos.todos = todos.todos.filter(todo => {
+      if (todo.name.includes(target.value)) {
+        todo.visibility = true;
+      } else {
+        todo.visibility = false;
+      }
+      return todo;
+    });
+    todos.render(ul);
+  };
+
+  search_input.addEventListener("keyup", searchTodo);
+
+
+    todos.render(ul)
+
+</script>

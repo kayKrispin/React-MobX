@@ -4,6 +4,8 @@ import { Tabs } from 'antd';
 import ClassStore from "./classBasedStore";
 import ClassComponent from "./ClassComponent";
 import FunctionComponent from "./FunctionalComponent";
+import Todo from "./Todo";
+
 
 const { TabPane } = Tabs;
 
@@ -13,6 +15,9 @@ const { TabPane } = Tabs;
     return (
       <div className="App">
         <Tabs defaultActiveKey="1">
+          <TabPane tab="Function MobX" key="3">
+            <Todo/>
+          </TabPane>
           <TabPane tab="Class MobX" key="1">
             <ClassComponent store={ClassStore} />
           </TabPane>
